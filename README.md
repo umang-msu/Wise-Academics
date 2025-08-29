@@ -1,1 +1,3 @@
 # Wise-Academics
+This is my first project on github.
+Author - Umang Tanwer.
