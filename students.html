@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Students List</title>
+  <link rel="icon" href="/logo/logo.jpg" type="image/jpeg">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+</head>
+<body>
+
+<!-- Navbar Start -->
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand d-flex align-items-center" href="/">
+      <img src="/logo/logo.jpg" alt="Logo" width="30" height="24" class="me-2">
+      <span>MSU</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+      aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="/dashboard.html">Back</a></li>
+        <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- Navbar End -->
+
+<!-- Main Content -->
+<div class="container mt-5">
+  <h2>Students List</h2>
+
+  <!-- Filter Form -->
+<form method="POST" action="/students" class="mb-4">
+  <div class="row g-2">
+    <div class="col-md-5">
+      <select name="batch_code" class="form-select" id="batchSelect">
+        <option value="">-- Select Batch Code --</option>
+        {% for code in batch_codes %}
+        <option value="{{ code }}" {% if selected_batch == code %}selected{% endif %}>{{ code }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="col-md-4">
+      <select name="status" class="form-select">
+        <option value="">-- Select Status --</option>
+        {% for s in status_options %}
+        <option value="{{ s }}" {% if selected_status == s %}selected{% endif %}>{{ s }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="col-md-3">
+      <button type="submit" class="btn btn-primary w-100">Filter</button>
+    </div>
+  </div>
+</form>
+
+  <!-- Student Table -->
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>Reg No</th>
+        <th>Name</th>
+        <th>Contact No</th>
+        <th>Email ID</th>
+        <th>Batch Code</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for student in students %}
+      <tr>
+        <td>{{ student[0] }}</td>
+        <td>{{ student[1] }}</td>
+        <td>{{ student[2] }}</td>
+        <td>{{ student[3] }}</td>
+        <td>{{ student[4] }}</td>
+        <td>{{ student[5] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<!-- JS Scripts -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+    $('#batchSelect').select2({
+      placeholder: "Select or type batch code",
+      allowClear: true
+    });
+  });
+</script>
+
+</body>
+</html>
